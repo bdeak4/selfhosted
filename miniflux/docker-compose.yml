@@ -1,0 +1,28 @@
+version: "3"
+
+services:
+  miniflux:
+    image: miniflux/miniflux
+    restart: always
+    environment:
+      - "RUN_MIGRATIONS=1"
+      - "CREATE_ADMIN=1"
+    env_file:
+      - miniflux.env
+    healthcheck:
+      test: ["CMD", "/usr/bin/miniflux", "-healthcheck", "auto"]
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.miniflux.rule=Host(`miniflux2.bdeak.net`)"
+      - "traefik.http.routers.miniflux.entrypoints=websecure"
+      - "traefik.http.routers.miniflux.tls.certresolver=letsencrypt"
+      - "traefik.http.services.miniflux.loadbalancer.server.port=8080"
+    networks:
+      - traefiknet
+      - postgresnet
+
+networks:
+  traefiknet:
+    external: true
+  postgresnet:
+    external: true
