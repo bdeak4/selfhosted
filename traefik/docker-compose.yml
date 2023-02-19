@@ -1,13 +1,14 @@
 version: "3"
 
 services:
-  reverse-proxy:
+  traefik:
     image: traefik:v2.9
     container_name: traefik
     command:
       # - "--api.insecure=true"
       - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=false"
+      - "--providers.docker.network=traefiknet"
       - "--entrypoints.web.address=:80"
       - "--entrypoints.websecure.address=:443"
       - "--entrypoints.web.http.redirections.entryPoint.to=websecure"

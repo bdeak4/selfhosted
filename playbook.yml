@@ -32,7 +32,7 @@
   vars:
     services:
       - traefik
-      - whoami
+      - postgres
 
   tasks:
     - name: Install repository dependencies
@@ -74,9 +74,13 @@
     #     username: "{{ docker_username }}"
     #     password: "{{ docker_password }}"
 
-    - name: Create traefik docker network
+    - name: Create Traefik docker network
       community.docker.docker_network:
         name: traefiknet
+
+    - name: Create PostgreSQL docker network
+      community.docker.docker_network:
+        name: postgresnet
 
     - name: Copy service configuration files
       ansible.builtin.copy:
@@ -90,6 +94,6 @@
       ansible.builtin.shell: |
         cd "{{ item }}"
         docker compose pull
-        docker compose up -d
+        docker compose up -d --remove-orphans
       loop: "{{ changed_services.results | selectattr('changed', 'equalto', true) | map(attribute='item') | list }}"
       changed_when: true

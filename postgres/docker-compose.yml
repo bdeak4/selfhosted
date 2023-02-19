@@ -1,0 +1,44 @@
+version: "3"
+
+services:
+  postgres15:
+    image: postgres:15
+    restart: always
+    env_file:
+      - postgres.env
+    volumes:
+      - ./pgdata15:/var/lib/postgresql/data
+    networks:
+      - postgresnet
+
+  postgres14:
+    image: postgres:14
+    restart: always
+    env_file:
+      - postgres.env
+    volumes:
+      - ./pgdata14:/var/lib/postgresql/data
+    networks:
+      - postgresnet
+
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: on-failure:10
+    environment:
+      PGADMIN_CONFIG_ENHANCED_COOKIE_PROTECTION: "False"
+    env_file:
+      - pgadmin.env
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.pgadmin.rule=Host(`pgadmin.bdeak.net`)"
+      - "traefik.http.routers.pgadmin.entrypoints=websecure"
+      - "traefik.http.routers.pgadmin.tls.certresolver=letsencrypt"
+    networks:
+      - traefiknet
+      - postgresnet
+
+networks:
+  traefiknet:
+    external: true
+  postgresnet:
+    external: true
