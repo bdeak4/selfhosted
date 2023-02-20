@@ -13,7 +13,7 @@ services:
       test: ["CMD", "/usr/bin/miniflux", "-healthcheck", "auto"]
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.miniflux.rule=Host(`miniflux2.bdeak.net`)"
+      - "traefik.http.routers.miniflux.rule=Host(`miniflux.bdeak.net`)"
       - "traefik.http.routers.miniflux.entrypoints=websecure"
       - "traefik.http.routers.miniflux.tls.certresolver=letsencrypt"
       - "traefik.http.services.miniflux.loadbalancer.server.port=8080"
