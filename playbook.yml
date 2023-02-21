@@ -33,6 +33,7 @@
     services:
       - traefik
       - postgres
+      - miniflux
 
   tasks:
     - name: Install repository dependencies

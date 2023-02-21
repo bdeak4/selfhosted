@@ -6,8 +6,10 @@ services:
     restart: always
     env_file:
       - postgres.env
+    ports:
+      - "5432:5432"
     volumes:
-      - ./pgdata15:/var/lib/postgresql/data
+      - pgdata15:/var/lib/postgresql/data
     networks:
       - postgresnet
 
@@ -16,16 +18,18 @@ services:
     restart: always
     env_file:
       - postgres.env
+    ports:
+      - "5431:5432"
     volumes:
-      - ./pgdata14:/var/lib/postgresql/data
+      - pgdata14:/var/lib/postgresql/data
     networks:
       - postgresnet
 
   pgadmin:
     image: dpage/pgadmin4
-    restart: on-failure:10
+    restart: always
     environment:
-      PGADMIN_CONFIG_ENHANCED_COOKIE_PROTECTION: "False"
+      - "PGADMIN_CONFIG_ENHANCED_COOKIE_PROTECTION=False"
     env_file:
       - pgadmin.env
     labels:
@@ -36,6 +40,10 @@ services:
     networks:
       - traefiknet
       - postgresnet
+
+volumes:
+  pgdata15:
+  pgdata14:
 
 networks:
   traefiknet:
