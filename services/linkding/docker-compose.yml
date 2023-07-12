@@ -1,0 +1,29 @@
+version: "3"
+
+services:
+  linkding:
+    image: sissbruecker/linkding:latest
+    container_name: linkding
+    restart: unless-stopped
+    environment:
+      - "LD_DB_ENGINE=postgres"
+      - "LD_CSRF_TRUSTED_ORIGINS=https://linkding.bdeak.net"
+    env_file:
+      - linkding.enc.env
+    volumes:
+      - linkding:/etc/linkding/data
+    networks:
+      - traefiknet
+      - postgresnet
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.linkding.rule=Host(`linkding.bdeak.net`)"
+
+volumes:
+  linkding:
+
+networks:
+  traefiknet:
+    external: true
+  postgresnet:
+    external: true

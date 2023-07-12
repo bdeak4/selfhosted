@@ -1,6 +1,15 @@
 # selfhosted
-Configuration files for services hosted on single Hetzner AX41 server
+
+Configuration files for selfhosted services.
+
+## Deploy
 
 ```
-ansible-playbook playbook.yml -i hosts.ini --ask-vault-pass
+$ ./scripts/deploy.sh
+```
+
+## Backup
+
+```
+$ ./scripts/backup.sh
 ```
