@@ -1,0 +1,26 @@
+version: "3"
+
+services:
+  miniflux:
+    image: miniflux/miniflux:latest
+    container_name: miniflux
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "/usr/bin/miniflux", "-healthcheck", "auto"]
+    environment:
+      - "RUN_MIGRATIONS=1"
+      - "CREATE_ADMIN=1"
+    env_file:
+      - miniflux.enc.env
+    networks:
+      - traefiknet
+      - postgresnet
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.miniflux.rule=Host(`miniflux.bdeak.net`)"
+
+networks:
+  traefiknet:
+    external: true
+  postgresnet:
+    external: true
