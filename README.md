@@ -9,6 +9,7 @@ Configuration files for selfhosted services.
 - [pgAdmin](https://www.pgadmin.org/) - database client
 - [Miniflux](https://miniflux.app/) - rss reader
 - [linkding](https://github.com/sissbruecker/linkding) - bookmark manager
+- [stack.management](https://github.com/bdeak4/stack.management) - todo list
 
 ## Deploy
 
