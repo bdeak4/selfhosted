@@ -14,7 +14,7 @@ Configuration files for selfhosted services.
 ## Deploy
 
 ```
-$ ./scripts/deploy.sh
+$ ./scripts/deploy.sh <service>
 ```
 
 ## Backup
