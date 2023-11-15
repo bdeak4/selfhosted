@@ -1,0 +1,29 @@
+version: "3"
+
+services:
+  cache:
+    image: redis:6
+    restart: unless-stopped
+    container_name: chatter-redis
+    networks:
+      - chatternet
+
+  chatter:
+    image: ghcr.io/bdeak4/chatter:latest
+    container_name: chatter
+    restart: unless-stopped
+    environment:
+      REDIS_URL: redis://cache:6379
+    env_file:
+      - chatter.enc.env
+    networks:
+      - traefiknet
+      - chatternet
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.chatter.rule=Host(`chatter.exposed`)"
+
+networks:
+  traefiknet:
+    external: true
+  chatternet:

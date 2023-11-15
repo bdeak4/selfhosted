@@ -15,7 +15,7 @@ sops -d "../ssh-keys/selfhosted.enc" | ssh-add -
 find "../services/$1" -name "*.enc.*" -exec sops -d -i {} \;
 
 rsync -av --progress "../services/$1" $user@$ip:services/
-ssh $user@$ip "cd services/$1 && docker compose up -d"
+ssh $user@$ip "cd services/$1 && docker compose pull && docker compose up -d && docker system prune -af"
 
 find "../services/$1" -name "*.enc.*" -exec sops -e -i {} \;
 ssh-add -d "../ssh-keys/selfhosted.pub"

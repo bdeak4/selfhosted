@@ -10,7 +10,6 @@ ssh $user@$ip <<EOF
 curl -fsSL https://get.docker.com -o get-docker.sh
 sudo sh ./get-docker.sh
 sudo docker network create traefiknet
-sudo docker network create postgresnet
 EOF
 
 ssh-add -d "../ssh-keys/selfhosted.pub"
