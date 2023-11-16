@@ -14,13 +14,10 @@ services:
       - miniflux.enc.env
     networks:
       - traefiknet
-      - postgresnet
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.miniflux.rule=Host(`miniflux.bdeak.net`)"
 
 networks:
   traefiknet:
-    external: true
-  postgresnet:
     external: true

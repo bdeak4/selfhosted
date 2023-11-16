@@ -9,13 +9,10 @@ services:
       - stack-management.enc.env
     networks:
       - traefiknet
-      - postgresnet
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.stack-management.rule=Host(`stack.management`)"
 
 networks:
   traefiknet:
-    external: true
-  postgresnet:
     external: true
