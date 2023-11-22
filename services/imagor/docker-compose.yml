@@ -1,0 +1,31 @@
+version: "3"
+
+services:
+  imagor:
+    image: shumc/imagor:latest
+    container_name: imagor
+    restart: unless-stopped
+    environment:
+      - "IMAGOR_AUTO_WEBP=1"
+      - "FILE_LOADER_BASE_DIR=/mnt/data"
+      - "FILE_STORAGE_BASE_DIR=/mnt/data"
+      - "FILE_RESULT_STORAGE_BASE_DIR=/mnt/data/result"
+      - "VIPS_MAX_RESOLUTION=16800000"
+      - "VIPS_MAX_WIDTH=5000"
+      - "VIPS_MAX_HEIGHT=5000"
+    env_file:
+      - imagor.enc.env
+    networks:
+      - traefiknet
+    volumes:
+      - data:/mnt/data
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.imagor.rule=Host(`imagor.bdeak.net`)"
+
+networks:
+  traefiknet:
+    external: true
+
+volumes:
+  data:
