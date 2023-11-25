@@ -1,6 +1,6 @@
 #!/bin/sh
 
-ip=23.88.98.91
+ip=213.239.221.8
 user=root
 
 service=$1
