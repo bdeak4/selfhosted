@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+  cgi-bin:
+    image: ghcr.io/bdeak4/cgi-bin:latest
+    container_name: cgi-bin
+    restart: unless-stopped
+    networks:
+      - traefiknet
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.cgi-bin.rule=Host(`cgi-bin.bdeak.net`)"
+
+networks:
+  traefiknet:
+    external: true
