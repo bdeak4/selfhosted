@@ -1,5 +1,3 @@
-version: "3"
-
 services:
   cgi-bin:
     image: ghcr.io/bdeak4/cgi-bin:latest

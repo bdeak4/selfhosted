@@ -1,5 +1,3 @@
-version: "3"
-
 services:
   stack-management:
     image: ghcr.io/bdeak4/stack-management:latest

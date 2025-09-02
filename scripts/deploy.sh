@@ -1,7 +1,7 @@
 #!/bin/sh
 
-ip=213.239.221.8
-user=root
+ip=63.176.177.19
+user=admin
 
 service=$1
 
@@ -18,12 +18,12 @@ rsync -av --progress "../services/$1" $user@$ip:services/
 
 ssh $user@$ip <<EOF
 cd services/$1 \
-&& docker compose pull \
-&& docker compose up -d \
-&& docker system prune -af \
+&& sudo docker compose pull \
+&& sudo docker compose up -d \
+&& sudo docker system prune -af \
 && if [ -e ./postup.sh ]; then
      echo "Running postup.sh"
-     ./postup.sh
+     sudo ./postup.sh
    fi
 EOF
 

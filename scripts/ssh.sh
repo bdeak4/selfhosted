@@ -1,7 +1,7 @@
 #!/bin/sh
 
-ip=213.239.221.8
-user=root
+ip=63.176.177.19
+user=admin
 
 cd -P -- "$(dirname -- "$(realpath -- "$0")")" || exit
 sops -d "../ssh-keys/selfhosted.enc" | ssh-add -
